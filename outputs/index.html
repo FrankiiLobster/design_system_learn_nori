@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nori 设计系统与 Agent 协作知识收获 Review">
+  <title>Nori / Design System Review</title>
+  <style>
+    :root {
+      --ink: #18212b;
+      --muted: #6c7580;
+      --paper: #f5f3ee;
+      --surface: #fffdf9;
+      --line: #dedbd3;
+      --orange: #e76f3c;
+      --orange-soft: #fae6db;
+      --teal: #1e7770;
+      --teal-soft: #dcefeb;
+      --blue: #4169a1;
+      --blue-soft: #e3eaf5;
+      --yellow: #a57516;
+      --yellow-soft: #f7edc9;
+      --shadow: 0 12px 35px rgba(24, 33, 43, .07);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+
+    .app-shell { min-height: 100vh; display: grid; grid-template-columns: 280px minmax(0, 1fr); }
+    .sidebar {
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
+      padding: 28px 20px 24px; background: #202b35; color: #eef2f1;
+      display: flex; flex-direction: column;
+    }
+    .brand { display: flex; align-items: center; gap: 11px; margin-bottom: 34px; }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      background: var(--orange); color: white; font-weight: 800; letter-spacing: -.08em;
+    }
+    .brand-name { font-weight: 750; letter-spacing: .04em; }
+    .brand-sub { display: block; color: #a8b4b7; font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
+    .side-label { margin: 0 0 8px 10px; color: #92a2a6; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+    .nav { display: grid; gap: 3px; }
+    .nav button {
+      border: 0; border-radius: 6px; background: transparent; color: #d9e2e0;
+      text-align: left; padding: 10px 11px; font-size: 13px; transition: .18s ease;
+    }
+    .nav button:hover, .nav button.active { background: #33424b; color: white; }
+    .nav button.active { box-shadow: inset 3px 0 0 var(--orange); }
+    .nav-kicker { display: block; color: #8fa2a5; font-size: 10px; margin-bottom: 2px; }
+    .side-footer { margin-top: auto; padding: 18px 10px 0; color: #92a2a6; font-size: 11px; }
+    .side-footer strong { display: block; color: #dfe8e5; margin-bottom: 4px; font-size: 12px; }
+
+    .main { min-width: 0; }
+    .topbar {
+      position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; gap: 18px;
+      padding: 14px 42px; border-bottom: 1px solid rgba(222, 219, 211, .88); background: rgba(245, 243, 238, .94); backdrop-filter: blur(14px);
+    }
+    .mobile-title { display: none; font-weight: 750; }
+    .search-wrap { position: relative; width: min(430px, 45vw); }
+    .search-wrap input {
+      width: 100%; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink);
+      padding: 10px 14px 10px 38px; outline: none; font-size: 13px;
+    }
+    .search-wrap input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(30,119,112,.12); }
+    .search-icon { position: absolute; left: 13px; top: 9px; color: var(--muted); font-size: 15px; }
+    .view-meta { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .content { width: min(1220px, 100%); margin: 0 auto; padding: 42px 42px 70px; }
+
+    .hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(280px, .6fr); gap: 36px; align-items: end; padding: 34px 0 42px; border-bottom: 1px solid var(--line); }
+    .eyebrow { margin: 0 0 14px; color: var(--orange); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { max-width: 760px; margin: 0; font-size: clamp(38px, 5vw, 72px); line-height: 1.02; letter-spacing: -.055em; font-weight: 800; }
+    .hero-copy { max-width: 720px; margin: 22px 0 0; color: #4d5962; font-size: 16px; }
+    .hero-note { padding-left: 22px; border-left: 3px solid var(--teal); color: #4d5962; font-size: 14px; }
+    .hero-note strong { display: block; color: var(--ink); margin-bottom: 8px; font-size: 15px; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
+    .stat { padding: 23px 18px 22px 0; }
+    .stat + .stat { padding-left: 18px; border-left: 1px solid var(--line); }
+    .stat-number { font-size: 31px; line-height: 1; font-weight: 780; letter-spacing: -.04em; }
+    .stat-label { margin-top: 8px; color: var(--muted); font-size: 12px; }
+
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 22px; padding: 55px 0 20px; }
+    .section-index { color: var(--orange); font: 700 12px/1 monospace; letter-spacing: .12em; }
+    h2 { margin: 7px 0 0; font-size: 29px; line-height: 1.15; letter-spacing: -.035em; }
+    .section-intro { max-width: 560px; margin: 0; color: var(--muted); font-size: 14px; }
+    .section { scroll-margin-top: 78px; }
+
+    .overview-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 22px; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .panel-pad { padding: 24px; }
+    .panel-title { margin: 0 0 16px; font-size: 16px; }
+    .quote { margin: 0; color: #36434b; font-size: 20px; line-height: 1.45; letter-spacing: -.02em; }
+    .quote-mark { color: var(--orange); font-size: 35px; line-height: .4; vertical-align: -9px; margin-right: 3px; }
+    .source-line { margin-top: 17px; color: var(--muted); font-size: 12px; }
+    .source-line b { color: var(--ink); }
+    .map { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .map-node { padding: 13px; border: 1px solid var(--line); border-radius: 6px; background: #fbfaf6; }
+    .map-node strong { display: block; font-size: 13px; }
+    .map-node span { display: block; margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .map-node.core { grid-column: span 2; border-color: var(--orange); background: var(--orange-soft); }
+    .map-node.core strong { color: #93401f; }
+
+    .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .insight { padding: 20px; border-top: 3px solid var(--teal); background: var(--surface); border-bottom: 1px solid var(--line); }
+    .insight:nth-child(2) { border-top-color: var(--orange); }
+    .insight:nth-child(3) { border-top-color: var(--blue); }
+    .insight h3 { margin: 0 0 9px; font-size: 15px; }
+    .insight p { margin: 0; color: #58636c; font-size: 13px; }
+
+    .knowledge-list { display: grid; gap: 18px; }
+    .knowledge-item { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 22px; padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+    .knowledge-item[hidden] { display: none; }
+    .item-meta { color: var(--muted); font-size: 12px; }
+    .item-meta strong { display: block; color: var(--ink); font-size: 17px; line-height: 1.3; margin-bottom: 6px; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .tag { display: inline-flex; align-items: center; padding: 3px 7px; border-radius: 4px; color: var(--teal); background: var(--teal-soft); font-size: 10px; font-weight: 700; }
+    .tag.orange { color: #964522; background: var(--orange-soft); }
+    .tag.blue { color: #385c90; background: var(--blue-soft); }
+    .tag.yellow { color: #816011; background: var(--yellow-soft); }
+    .item-body h3 { margin: 0 0 8px; font-size: 19px; letter-spacing: -.02em; }
+    .item-body > p { margin: 0 0 15px; color: #4f5d66; font-size: 14px; }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .sub-block { padding: 14px 15px; border-left: 2px solid var(--line); background: #fbfaf6; }
+    .sub-block h4 { margin: 0 0 6px; font-size: 12px; color: var(--ink); }
+    .sub-block p, .sub-block ul { margin: 0; color: #59656d; font-size: 12px; }
+    .sub-block ul { padding-left: 17px; }
+    .sub-block li + li { margin-top: 5px; }
+
+    .taxonomy { display: grid; grid-template-columns: .95fr 1.05fr; gap: 20px; }
+    .taxonomy-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .taxonomy-table th, .taxonomy-table td { padding: 11px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .taxonomy-table th { color: var(--muted); font-size: 11px; font-weight: 600; }
+    .taxonomy-table td:first-child { width: 30%; color: var(--ink); font-weight: 700; }
+    .principle { padding: 22px; background: #273c42; color: #f6faf6; border-radius: var(--radius); }
+    .principle h3 { margin: 0 0 18px; font-size: 15px; }
+    .principle-line { display: grid; grid-template-columns: 72px 1fr; gap: 13px; padding: 13px 0; border-top: 1px solid rgba(255,255,255,.16); }
+    .principle-line b { color: #f5bd76; font-size: 12px; }
+    .principle-line span { color: #d5e2df; font-size: 13px; }
+
+    .spec-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 20px; }
+    .spec-flow { display: grid; gap: 0; }
+    .flow-step { position: relative; display: grid; grid-template-columns: 42px 1fr; gap: 13px; padding-bottom: 22px; }
+    .flow-step:not(:last-child)::after { content: ""; position: absolute; left: 20px; top: 41px; bottom: 0; border-left: 1px dashed #b7c7c2; }
+    .flow-num { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--teal-soft); color: var(--teal); font: 700 13px monospace; z-index: 1; }
+    .flow-step h3 { margin: 2px 0 5px; font-size: 15px; }
+    .flow-step p { margin: 0; color: var(--muted); font-size: 12px; }
+    .spec-code { overflow: auto; padding: 23px; border-radius: var(--radius); background: #202b35; color: #dfe9e4; font: 12px/1.75 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .code-key { color: #f5bd76; }
+    .code-value { color: #9bd2c7; }
+    .code-comment { color: #8b9aa1; }
+
+    .review-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .review-col { min-width: 0; padding: 17px; background: #eeece6; border: 1px solid var(--line); border-radius: var(--radius); }
+    .review-col h3 { display: flex; justify-content: space-between; margin: 0 0 13px; font-size: 14px; }
+    .review-col h3 span { color: var(--muted); font-size: 11px; font-weight: 500; }
+    .review-card { margin-top: 9px; padding: 13px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+    .review-card strong { display: block; margin-bottom: 5px; font-size: 12px; }
+    .review-card p { margin: 0; color: #5c6870; font-size: 11px; line-height: 1.5; }
+    .review-card.pending { border-left: 3px solid var(--yellow); }
+    .review-card.verified { border-left: 3px solid var(--teal); }
+    .review-card.action { border-left: 3px solid var(--orange); }
+
+    .footer { margin-top: 58px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; gap: 20px; }
+    .empty { display: none; padding: 30px; color: var(--muted); text-align: center; border: 1px dashed var(--line); border-radius: var(--radius); }
+    .mobile-nav { display: none; }
+
+    @media (max-width: 980px) {
+      .app-shell { grid-template-columns: 220px minmax(0, 1fr); }
+      .content { padding-inline: 28px; }
+      .topbar { padding-inline: 28px; }
+      .hero, .overview-grid, .taxonomy, .spec-layout { grid-template-columns: 1fr; }
+      .hero-note { max-width: 530px; }
+      .insight-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .app-shell { display: block; }
+      .sidebar { display: none; }
+      .topbar { padding: 12px 16px; }
+      .mobile-title { display: block; }
+      .view-meta { display: none; }
+      .search-wrap { width: min(260px, 62vw); }
+      .mobile-nav { display: flex; gap: 7px; overflow-x: auto; padding: 10px 16px; border-bottom: 1px solid var(--line); background: var(--paper); }
+      .mobile-nav button { flex: 0 0 auto; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); padding: 6px 10px; color: var(--muted); font-size: 11px; }
+      .mobile-nav button.active { border-color: var(--teal); color: var(--teal); background: var(--teal-soft); }
+      .content { padding: 26px 16px 50px; }
+      .hero { padding-top: 20px; gap: 24px; }
+      h1 { font-size: 45px; }
+      .hero-copy { font-size: 14px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat { padding: 17px 10px 16px 0; }
+      .stat + .stat { padding-left: 10px; }
+      .stat:nth-child(3) { border-left: 0; padding-left: 0; }
+      .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+      .section-head { display: block; padding-top: 42px; }
+      .section-intro { margin-top: 12px; }
+      .knowledge-item { grid-template-columns: 1fr; gap: 13px; padding: 18px; }
+      .split, .review-board { grid-template-columns: 1fr; }
+      .panel-pad { padding: 18px; }
+      .map { grid-template-columns: 1fr; }
+      .map-node.core { grid-column: auto; }
+      .footer { display: block; }
+      .footer span { display: block; margin-top: 7px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">N</div>
+        <div><span class="brand-name">NORI</span><span class="brand-sub">Design system review</span></div>
+      </div>
+      <p class="side-label">Knowledge map</p>
+      <nav class="nav" id="desktopNav" aria-label="章节导航">
+        <button class="active" data-target="overview"><span class="nav-kicker">00 / Map</span>总览与核心判断</button>
+        <button data-target="foundations"><span class="nav-kicker">01 / Direction</span>为什么整理设计系统</button>
+        <button data-target="taxonomy"><span class="nav-kicker">02 / Taxonomy</span>分类是行为模型</button>
+        <button data-target="overlays"><span class="nav-kicker">03 / Components</span>Overlay 与 Sheet 家族</button>
+        <button data-target="protocol"><span class="nav-kicker">04 / Protocol</span>状态、数据与渲染</button>
+        <button data-target="agent-spec"><span class="nav-kicker">05 / Handoff</span>写给 Agent 的规范</button>
+        <button data-target="review"><span class="nav-kicker">06 / Review</span>待验证与下一轮</button>
+      </nav>
+      <div class="side-footer"><strong>Source boundary</strong>附件是对话素材。网站中的“已确认”只代表当前讨论形成的判断，Nori 正式规范仍需后续验证。</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="mobile-title">NORI / REVIEW</div>
+        <div class="search-wrap"><span class="search-icon">⌕</span><input id="search" type="search" placeholder="搜索 Token、Overlay、Agent…" aria-label="搜索知识主题"></div>
+        <div class="view-meta"><span id="resultCount">7</span> 个主题 · 初版 review</div>
+      </header>
+      <nav class="mobile-nav" id="mobileNav" aria-label="移动端章节导航">
+        <button class="active" data-target="overview">总览</button><button data-target="foundations">方向</button><button data-target="taxonomy">分类</button><button data-target="overlays">Overlay</button><button data-target="protocol">状态</button><button data-target="agent-spec">Agent</button><button data-target="review">待验证</button>
+      </nav>
+
+      <div class="content">
+        <section class="hero" id="overview">
+          <div>
+            <p class="eyebrow">Nori knowledge harvest / v0.1</p>
+            <h1>把零散讨论，整理成可执行的设计系统。</h1>
+            <p class="hero-copy">这是一份从你与 Gemini 的对话中提炼出的知识收获 review。它关注的不只是“组件叫什么”，而是设计系统如何把视觉、行为、工程约束和 Agent 协作连接起来。</p>
+          </div>
+          <div class="hero-note"><strong>本版的阅读方式</strong>先看总览，再沿着“分类 → 行为 → 规范 → Agent 测试”的路径浏览。橙色内容偏向你的原始思考，青绿色内容偏向已经形成的系统判断，黄色内容保留为下一轮需要确认的假设。</div>
+        </section>
+
+        <section class="stats" aria-label="知识网统计">
+          <div class="stat"><div class="stat-number">7</div><div class="stat-label">已合并主题</div></div>
+          <div class="stat"><div class="stat-number">4</div><div class="stat-label">核心行为维度</div></div>
+          <div class="stat"><div class="stat-number">3</div><div class="stat-label">组件分类视角</div></div>
+          <div class="stat"><div class="stat-number">1</div><div class="stat-label">持续迭代闭环</div></div>
+        </section>
+
+        <section class="section" id="foundations">
+          <div class="section-head"><div><div class="section-index">01 / DIRECTION</div><h2>你真正要建立的，不只是组件库</h2></div><p class="section-intro">对话的长期主线，是把设计系统变成设计师、工程师和 Agent 都能共享的语义基础设施。</p></div>
+          <div class="overview-grid">
+            <article class="panel panel-pad"><h3 class="panel-title">核心判断</h3><p class="quote"><span class="quote-mark">“</span>软件设计像新时代的建筑设计：系统性、规范、模块化、可复用性和语义逻辑，决定了数字空间能否持续生长。</p><p class="source-line"><b>来自你的思考</b> · 你把“提升设计理解”和“让 Agent 真正理解 Nori”看成同一个长期目标。</p></article>
+            <article class="panel panel-pad"><h3 class="panel-title">知识地图</h3><div class="map"><div class="map-node core"><strong>Agent 协作</strong><span>作为最终检验标准，反向暴露规范缺口</span></div><div class="map-node"><strong>成熟系统</strong><span>学习顶层架构与规则制定</span></div><div class="map-node"><strong>开源组件库</strong><span>观察 API、Slots、States 如何落地</span></div><div class="map-node"><strong>Nori 重构</strong><span>把缺失、冗余和现实约束显性化</span></div><div class="map-node"><strong>规范沉淀</strong><span>形成机器可读的共享上下文</span></div></div></article>
+          </div>
+          <div class="insight-grid" style="margin-top:14px">
+            <article class="insight"><h3>看成熟规范</h3><p>学习设计哲学、品牌表达、Token 分层，以及一套规则如何被组织出来。</p></article>
+            <article class="insight"><h3>看代码组件</h3><p>学习 Anatomy、Slots、Props、States，以及设计意图如何转成 API。</p></article>
+            <article class="insight"><h3>让 Agent 试用</h3><p>把 Agent 当成严格测试员：误解不是单纯的生成错误，也是规范的诊断信号。</p></article>
+          </div>
+        </section>
+
+        <section class="section" id="taxonomy" data-searchable="分类 taxonomy behavior 渲染 交互 无障碍">
+          <div class="section-head"><div><div class="section-index">02 / TAXONOMY</div><h2>分类不是目录，而是行为模型</h2></div><p class="section-intro">一个组件属于什么大类，会向开发者和 Agent 暗示它的渲染方式、状态协议和无障碍责任。</p></div>
+          <div class="taxonomy">
+            <div class="panel panel-pad"><table class="taxonomy-table"><thead><tr><th>维度</th><th>分类传递的隐含信息</th></tr></thead><tbody><tr><td>渲染机制</td><td>Overlay 通常意味着 Portal、Backdrop、Z-index 和底层滚动锁定。</td></tr><tr><td>交互协议</td><td>Forms 通常意味着 value、onChange、disabled，以及受控/非受控模式。</td></tr><tr><td>无障碍</td><td>Disclosure 通常意味着 aria-expanded、焦点移动和键盘方向键行为。</td></tr><tr><td>语义 Token</td><td>Feedback 偏向 status-success / status-error；Forms 偏向 border-focus / bg-hover。</td></tr></tbody></table></div>
+            <div class="principle"><h3>给 Nori 的分类原则</h3><div class="principle-line"><b>大类</b><span>决定组件所处的上下文与默认行为。</span></div><div class="principle-line"><b>小类</b><span>决定组件承担的具体任务，例如 Sheet、Modal、Actionsheet。</span></div><div class="principle-line"><b>Props</b><span>把行为差异写成可组合、可验证的参数。</span></div><div class="principle-line"><b>金句</b><span>大类决定上下文，小组件决定 Props。</span></div></div>
+          </div>
+        </section>
+
+        <section class="section" id="overlays" data-searchable="overlay bottom sheet modal dialog drawer actionsheet portal">
+          <div class="section-head"><div><div class="section-index">03 / COMPONENTS</div><h2>Overlay 家族：先分容器，再分用途</h2></div><p class="section-intro">对话里最有价值的一次辨析，是把视觉形态、业务用途和渲染架构拆成了三个层次。</p></div>
+          <div class="knowledge-list">
+            <article class="knowledge-item" data-keywords="bottom sheet modal drawer actionsheet overlay">
+              <div class="item-meta"><strong>命名关系</strong>从容易混淆的组件名，走向层级化模型<div class="tag-row"><span class="tag orange">你的问题</span><span class="tag">已形成判断</span></div></div>
+              <div class="item-body"><h3>Bottom Sheet 是容器形态，Actionsheet 是业务用途</h3><p>Bottom Sheet 是从底部滑出的通用模态容器，可以承载表单、筛选器、富文本或复杂 Card。Actionsheet 是它的一种预设用途：面向当前上下文提供一列操作按钮。</p><div class="split"><div class="sub-block"><h4>建议的 Nori 关系</h4><ul><li>Overlay / Sheet：基础容器</li><li>Sheet preset：Bottom、Center、Side</li><li>Actionsheet：面向操作列表的业务预设</li></ul></div><div class="sub-block"><h4>为什么要这样拆</h4><p>避免把两个底层实现重复维护，同时让 Agent 能从容器推断 Portal、遮罩、关闭行为，再从 preset 推断内容结构。</p></div></div></div>
+            </article>
+            <article class="knowledge-item" data-keywords="gluestack disclosure overlay classification ux architecture">
+              <div class="item-meta"><strong>分类争议</strong>同一组件可以有不同分类视角<div class="tag-row"><span class="tag blue">对比分析</span><span class="tag yellow">待 Nori 决策</span></div></div>
+              <div class="item-body"><h3>为什么 gluestack 把 Actionsheet 放在 Disclosure？</h3><p>这不一定是“谁对谁错”，而是两个分类系统在回答不同问题：Disclosure 关注用户意图与渐进揭示，Overlay 关注脱离文档流的渲染架构。</p><div class="split"><div class="sub-block"><h4>UX 视角</h4><p>点击后向用户揭示更多操作或次要信息，因此可与 Accordion 放在同一语义家族。</p></div><div class="sub-block"><h4>Agent / 工程视角</h4><p>需要 Portal、Z-index、Backdrop、ESC 或 Android 返回键时，归入 Overlay 更不容易产生歧义。</p></div></div></div>
+            </article>
+            <article class="knowledge-item" data-keywords="portal z-index backdrop scroll lock overlay">
+              <div class="item-meta"><strong>渲染约束</strong>浮层的“看起来在这里”不等于“渲染在这里”<div class="tag-row"><span class="tag">技术约束</span><span class="tag orange">可写入 Spec</span></div></div>
+              <div class="item-body"><h3>Portal 是 Overlay 的结构性规则</h3><p>组件在业务代码中可以嵌套在列表或页面内部，但打开时通常应传送到 UI 树顶层，避免 overflow 截断和局部 stacking context 导致的层级错误。</p><div class="sub-block"><h4>给 Agent 的明确约束</h4><ul><li>挂载到全局 Portal / root layer。</li><li>声明 Z-index 层级与 Backdrop 策略。</li><li>声明是否锁定底层滚动，以及点击遮罩、ESC、返回键的关闭规则。</li></ul></div></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="protocol" data-searchable="state controlled uncontrolled forms value defaultValue onChange disabled a11y">
+          <div class="section-head"><div><div class="section-index">04 / PROTOCOL</div><h2>状态和数据流，是设计规范的另一半</h2></div><p class="section-intro">视觉稿里的一个“Disabled”或“Open”，在代码里对应的是数据拥有权、回调协议和交互边界。</p></div>
+          <div class="knowledge-list">
+            <article class="knowledge-item" data-keywords="controlled uncontrolled forms state value defaultValue onChange">
+              <div class="item-meta"><strong>Forms 组件</strong>Input、Checkbox、Select、Switch<div class="tag-row"><span class="tag">状态协议</span><span class="tag blue">高频模式</span></div></div>
+              <div class="item-body"><h3>专业组件库通常同时支持两种模式，但业务常优先受控</h3><p>受控模式让页面状态成为 Single Source of Truth，适合实时校验、组件联动、输入格式化和等待网络结果后再改变状态。非受控模式更适合简单表单或性能敏感场景。</p><div class="split"><div class="sub-block"><h4>受控</h4><p><code>value</code> + <code>onChange</code>。组件展示什么，由外部状态决定；组件只发出变化通知。</p></div><div class="sub-block"><h4>非受控</h4><p><code>defaultValue</code>。组件内部管理状态，外部在提交时读取结果，使用成本更低。</p></div></div></div>
+            </article>
+            <article class="knowledge-item" data-keywords="states props invalid disabled required focus loading empty constraints">
+              <div class="item-meta"><strong>状态完整性</strong>从“有几个变体”转向“状态是否可执行”<div class="tag-row"><span class="tag orange">诊断方法</span><span class="tag yellow">需落 Nori</span></div></div>
+              <div class="item-body"><h3>状态不是装饰，而是组件的行为合同</h3><p>Button、Input 或 Sheet 的状态应同时对应视觉表现、交互结果和数据约束。Agent 漏掉 Disabled、Error 或 Loading，不只是产出问题，也可能说明 States 规范不完整。</p><div class="sub-block"><h4>建议统一检查的状态面</h4><ul><li>通用状态：default、hover、pressed、focused、disabled、loading。</li><li>表单状态：invalid、required、readOnly、value / empty。</li><li>边界条件：超长文本、空状态、异步失败、内容溢出、键盘与触控。</li></ul></div></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="agent-spec" data-searchable="agent spec markdown json anatomy slots props states tokens code connect figma">
+          <div class="section-head"><div><div class="section-index">05 / HANDOFF</div><h2>把组件写成 Agent 能执行的规范</h2></div><p class="section-intro">对话已经给出一套清晰的最小结构：先讲组成，再讲接口，再讲状态和约束。</p></div>
+          <div class="spec-layout">
+            <div class="panel panel-pad"><div class="spec-flow"><div class="flow-step"><div class="flow-num">01</div><div><h3>Anatomy</h3><p>组件由哪些子件组成，例如 Sheet.Content、Overlay、DragHandle。</p></div></div><div class="flow-step"><div class="flow-num">02</div><div><h3>Slots</h3><p>哪些位置可以被业务内容替换，哪些结构必须保留。</p></div></div><div class="flow-step"><div class="flow-num">03</div><div><h3>Props</h3><p>把 snapPoints、isOpen、onClose、type 等核心 API 写成明确参数。</p></div></div><div class="flow-step"><div class="flow-num">04</div><div><h3>States & Constraints</h3><p>说明状态、响应式规则、边界条件、Do / Don't 和可访问性。</p></div></div></div></div>
+            <pre class="spec-code"><span class="code-comment">// Nori / Sheet.spec.md 的结构草案</span>
+<span class="code-key">component</span>: Sheet
+<span class="code-key">category</span>: Overlay
+<span class="code-key">purpose</span>: <span class="code-value">通用浮层容器</span>
+
+<span class="code-key">anatomy</span>:
+  - Overlay
+  - Content
+  - DragHandle
+  - Header
+  - Body
+  - Footer
+
+<span class="code-key">props</span>:
+  <span class="code-key">type</span>: <span class="code-value">bottom | center | side</span>
+  <span class="code-key">isOpen</span>: <span class="code-value">boolean</span>
+  <span class="code-key">onClose</span>: <span class="code-value">() =&gt; void</span>
+  <span class="code-key">dismissible</span>: <span class="code-value">boolean</span>
+  <span class="code-key">hasOverlay</span>: <span class="code-value">boolean</span>
+
+<span class="code-key">behavior</span>:
+  portal: <span class="code-value">required</span>
+  bodyScrollLock: <span class="code-value">when open</span>
+  escapeKey: <span class="code-value">close when dismissible</span>
+  androidBack: <span class="code-value">close when dismissible</span>
+
+<span class="code-key">states</span>:
+  closed / open / dragging / loading / error
+<span class="code-key">a11y</span>:
+  focusManagement / aria-label / keyboardNavigation</pre>
+          </div>
+        </section>
+
+        <section class="section" id="review" data-searchable="review verify open question next step token naming gluestack material apple tamagui">
+          <div class="section-head"><div><div class="section-index">06 / REVIEW</div><h2>这张知识网还需要什么？</h2></div><p class="section-intro">初版先把方向和关系搭起来。下一轮最值得做的，是把判断逐条变成 Nori 的可验证资产。</p></div>
+          <div class="review-board">
+            <div class="review-col"><h3>已经形成的判断 <span>3 items</span></h3><div class="review-card verified"><strong>设计系统整理是循环</strong><p>理解 → 参考 → 整理 Nori → 喂给 Agent → 发现误解 → 重构。</p></div><div class="review-card verified"><strong>分类可以传递行为</strong><p>大类不只是导航，它能暗示渲染、状态、Token 与无障碍协议。</p></div><div class="review-card verified"><strong>Sheet 与 Actionsheet 分层</strong><p>容器形态和业务用途应拆开建模，减少底层组件冗余。</p></div></div>
+            <div class="review-col"><h3>需要验证的假设 <span>3 items</span></h3><div class="review-card pending"><strong>Nori 的真实分类</strong><p>是否采用 Media、Forms、Data Display、Feedback、Overlay、Disclosure、Layout 等组合？</p></div><div class="review-card pending"><strong>Overlay 的统一 API</strong><p>Bottom、Center、Side 是否统一为 type，还是拆成不同组件并共享底层 primitives？</p></div><div class="review-card pending"><strong>Token 命名层级</strong><p>需要用 Nori 当前真实颜色、间距、状态命名做一次反向校验。</p></div></div>
+            <div class="review-col"><h3>下一轮动作 <span>3 items</span></h3><div class="review-card action"><strong>建立单组件模板</strong><p>为 Button、Input、Sheet 各写一份 Anatomy / Slots / Props / States / A11y 规范。</p></div><div class="review-card action"><strong>选一个 Agent 测试题</strong><p>给 Agent 一份组件 Spec，让它生成页面，再记录遗漏和误用。</p></div><div class="review-card action"><strong>做参考库对照表</strong><p>用 gluestack、M3、Apple Kit 对照 Nori，而不是直接照搬其中任何一家。</p></div></div>
+          </div>
+          <div class="panel panel-pad" style="margin-top:18px"><h3 class="panel-title">参考对象的正确用法</h3><p style="margin:0;color:#58636c;font-size:13px">gluestack-ui 适合观察跨平台组件分类和 Slots；Material Design 3 适合观察严密的状态、响应式和 Token 分层；Apple UI Kit 适合观察 iOS 原生 Sheet 与交互隐性规则；Hero UI 更适合从文档的 Anatomy 与 API Reference 中提炼代码结构。它们是参照系，不是 Nori 的答案。</p></div>
+        </section>
+
+        <div class="empty" id="emptyState">没有找到匹配的主题。可以尝试搜索 <b>Token</b>、<b>Sheet</b>、<b>Agent</b> 或 <b>状态</b>。</div>
+        <footer class="footer"><span>Nori Design System Review · v0.1 · 基于附件对话整理</span><span>内容状态：初版，等待你的 review</span></footer>
+      </div>
+    </main>
+  </div>
+  <script>
+    const navButtons = [...document.querySelectorAll('[data-target]')];
+    const sections = [...document.querySelectorAll('.section, #overview')];
+    const search = document.querySelector('#search');
+    const resultCount = document.querySelector('#resultCount');
+    const emptyState = document.querySelector('#emptyState');
+
+    function setActive(target) {
+      navButtons.forEach(button => button.classList.toggle('active', button.dataset.target === target));
+    }
+
+    navButtons.forEach(button => button.addEventListener('click', () => {
+      document.getElementById(button.dataset.target)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setActive(button.dataset.target);
+    }));
+
+    const observer = new IntersectionObserver(entries => {
+      const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActive(visible.target.id);
+    }, { rootMargin: '-18% 0px -68% 0px', threshold: [0, .2, .6] });
+    sections.forEach(section => observer.observe(section));
+
+    function filterContent() {
+      const query = search.value.trim().toLowerCase();
+      const blocks = [...document.querySelectorAll('.section[data-searchable]')];
+      let visibleCount = 0;
+      blocks.forEach(block => {
+        const haystack = `${block.dataset.searchable} ${block.textContent}`.toLowerCase();
+        const match = !query || haystack.includes(query);
+        block.hidden = !match;
+        if (match) visibleCount += 1;
+      });
+      document.querySelector('#overview').hidden = Boolean(query);
+      resultCount.textContent = query ? visibleCount : '7';
+      emptyState.style.display = visibleCount || !query ? 'none' : 'block';
+    }
+    search.addEventListener('input', filterContent);
+  </script>
+</body>
+</html>
