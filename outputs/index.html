@@ -46,7 +46,7 @@
     .brand { display: flex; align-items: center; gap: 11px; margin-bottom: 34px; }
     .brand-mark {
       width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
-      background: var(--orange); color: white; font-weight: 800; letter-spacing: -.08em;
+      background: var(--orange); color: white; font-weight: 800; letter-spacing: 0;
     }
     .brand-name { font-weight: 750; letter-spacing: .04em; }
     .brand-sub { display: block; color: #a8b4b7; font-size: 11px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; }
@@ -80,7 +80,7 @@
 
     .hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(280px, .6fr); gap: 36px; align-items: end; padding: 34px 0 42px; border-bottom: 1px solid var(--line); }
     .eyebrow { margin: 0 0 14px; color: var(--orange); font-size: 12px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
-    h1 { max-width: 760px; margin: 0; font-size: clamp(38px, 5vw, 72px); line-height: 1.02; letter-spacing: -.055em; font-weight: 800; }
+    h1 { max-width: 760px; margin: 0; font-size: 60px; line-height: 1.02; letter-spacing: 0; font-weight: 800; }
     .hero-copy { max-width: 720px; margin: 22px 0 0; color: #4d5962; font-size: 16px; }
     .hero-note { padding-left: 22px; border-left: 3px solid var(--teal); color: #4d5962; font-size: 14px; }
     .hero-note strong { display: block; color: var(--ink); margin-bottom: 8px; font-size: 15px; }
@@ -88,12 +88,12 @@
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
     .stat { padding: 23px 18px 22px 0; }
     .stat + .stat { padding-left: 18px; border-left: 1px solid var(--line); }
-    .stat-number { font-size: 31px; line-height: 1; font-weight: 780; letter-spacing: -.04em; }
+    .stat-number { font-size: 31px; line-height: 1; font-weight: 780; letter-spacing: 0; }
     .stat-label { margin-top: 8px; color: var(--muted); font-size: 12px; }
 
     .section-head { display: flex; justify-content: space-between; align-items: end; gap: 22px; padding: 55px 0 20px; }
     .section-index { color: var(--orange); font: 700 12px/1 monospace; letter-spacing: .12em; }
-    h2 { margin: 7px 0 0; font-size: 29px; line-height: 1.15; letter-spacing: -.035em; }
+    h2 { margin: 7px 0 0; font-size: 29px; line-height: 1.15; letter-spacing: 0; }
     .section-intro { max-width: 560px; margin: 0; color: var(--muted); font-size: 14px; }
     .section { scroll-margin-top: 78px; }
 
@@ -101,7 +101,7 @@
     .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
     .panel-pad { padding: 24px; }
     .panel-title { margin: 0 0 16px; font-size: 16px; }
-    .quote { margin: 0; color: #36434b; font-size: 20px; line-height: 1.45; letter-spacing: -.02em; }
+    .quote { margin: 0; color: #36434b; font-size: 20px; line-height: 1.45; letter-spacing: 0; }
     .quote-mark { color: var(--orange); font-size: 35px; line-height: .4; vertical-align: -9px; margin-right: 3px; }
     .source-line { margin-top: 17px; color: var(--muted); font-size: 12px; }
     .source-line b { color: var(--ink); }
@@ -129,7 +129,7 @@
     .tag.orange { color: #964522; background: var(--orange-soft); }
     .tag.blue { color: #385c90; background: var(--blue-soft); }
     .tag.yellow { color: #816011; background: var(--yellow-soft); }
-    .item-body h3 { margin: 0 0 8px; font-size: 19px; letter-spacing: -.02em; }
+    .item-body h3 { margin: 0 0 8px; font-size: 19px; letter-spacing: 0; }
     .item-body > p { margin: 0 0 15px; color: #4f5d66; font-size: 14px; }
     .split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .sub-block { padding: 14px 15px; border-left: 2px solid var(--line); background: #fbfaf6; }
@@ -224,13 +224,14 @@
       </div>
       <p class="side-label">Knowledge map</p>
       <nav class="nav" id="desktopNav" aria-label="章节导航">
-        <button class="active" data-target="overview"><span class="nav-kicker">00 / Map</span>总览与核心判断</button>
+        <button class="active" data-target="overview"><span class="nav-kicker">00 / Map</span>总览与本轮重组</button>
         <button data-target="foundations"><span class="nav-kicker">01 / Direction</span>为什么整理设计系统</button>
-        <button data-target="taxonomy"><span class="nav-kicker">02 / Taxonomy</span>分类是行为模型</button>
-        <button data-target="overlays"><span class="nav-kicker">03 / Components</span>Overlay 与 Sheet 家族</button>
-        <button data-target="protocol"><span class="nav-kicker">04 / Protocol</span>状态、数据与渲染</button>
-        <button data-target="agent-spec"><span class="nav-kicker">05 / Handoff</span>写给 Agent 的规范</button>
-        <button data-target="review"><span class="nav-kicker">06 / Review</span>待验证与下一轮</button>
+        <button data-target="taxonomy"><span class="nav-kicker">02 / Taxonomy</span>分类、组合与行为边界</button>
+        <button data-target="component-architecture"><span class="nav-kicker">03 / Architecture</span>组件边界与变体</button>
+        <button data-target="overlays"><span class="nav-kicker">04 / Overlay</span>浮层容器与页面模式</button>
+        <button data-target="protocol"><span class="nav-kicker">05 / Protocol</span>状态、数据与渲染</button>
+        <button data-target="agent-spec"><span class="nav-kicker">06 / Handoff</span>Figma → Agent → 代码</button>
+        <button data-target="review"><span class="nav-kicker">07 / Review</span>待验证与下一轮</button>
       </nav>
       <div class="side-footer"><strong>Source boundary</strong>附件是对话素材。网站中的“已确认”只代表当前讨论形成的判断，Nori 正式规范仍需后续验证。</div>
     </aside>
@@ -239,30 +240,30 @@
       <header class="topbar">
         <div class="mobile-title">NORI / REVIEW</div>
         <div class="search-wrap"><span class="search-icon">⌕</span><input id="search" type="search" placeholder="搜索 Token、Overlay、Agent…" aria-label="搜索知识主题"></div>
-        <div class="view-meta"><span id="resultCount">7</span> 个主题 · 初版 review</div>
+        <div class="view-meta"><span id="resultCount">7</span> 个主题 · v0.2 增量 review</div>
       </header>
       <nav class="mobile-nav" id="mobileNav" aria-label="移动端章节导航">
-        <button class="active" data-target="overview">总览</button><button data-target="foundations">方向</button><button data-target="taxonomy">分类</button><button data-target="overlays">Overlay</button><button data-target="protocol">状态</button><button data-target="agent-spec">Agent</button><button data-target="review">待验证</button>
+        <button class="active" data-target="overview">总览</button><button data-target="foundations">方向</button><button data-target="taxonomy">分类</button><button data-target="component-architecture">组件边界</button><button data-target="overlays">Overlay</button><button data-target="protocol">状态</button><button data-target="agent-spec">Handoff</button><button data-target="review">待验证</button>
       </nav>
 
       <div class="content">
         <section class="hero" id="overview">
           <div>
-            <p class="eyebrow">Nori knowledge harvest / v0.1</p>
-            <h1>把零散讨论，整理成可执行的设计系统。</h1>
-            <p class="hero-copy">这是一份从你与 Gemini 的对话中提炼出的知识收获 review。它关注的不只是“组件叫什么”，而是设计系统如何把视觉、行为、工程约束和 Agent 协作连接起来。</p>
+            <p class="eyebrow">Nori knowledge harvest / v0.2 · 2026-09-17</p>
+            <h1>从命名组件，走向定义组件边界。</h1>
+            <p class="hero-copy">本版只增量整理了旧历史最后时间点之后的 9 轮对话。重点从“组件叫什么”推进到壳层与内容、基础组件与包装组件、分类与组合、Figma 与 Agent 上下文之间的关系。</p>
           </div>
-          <div class="hero-note"><strong>本版的阅读方式</strong>先看总览，再沿着“分类 → 行为 → 规范 → Agent 测试”的路径浏览。橙色内容偏向你的原始思考，青绿色内容偏向已经形成的系统判断，黄色内容保留为下一轮需要确认的假设。</div>
+          <div class="hero-note"><strong>本版的阅读方式</strong>沿着“分类与组合边界 → 组件壳层和变体 → 浮层任务模式 → 状态协议 → Figma/Agent 交接”浏览。橙色偏向你的原始思考，青绿色偏向当前系统判断，黄色保留给下一轮验证。</div>
         </section>
 
         <section class="stats" aria-label="知识网统计">
           <div class="stat"><div class="stat-number">7</div><div class="stat-label">已合并主题</div></div>
-          <div class="stat"><div class="stat-number">4</div><div class="stat-label">核心行为维度</div></div>
-          <div class="stat"><div class="stat-number">3</div><div class="stat-label">组件分类视角</div></div>
-          <div class="stat"><div class="stat-number">1</div><div class="stat-label">持续迭代闭环</div></div>
+          <div class="stat"><div class="stat-number">9</div><div class="stat-label">本轮新增节点</div></div>
+          <div class="stat"><div class="stat-number">4</div><div class="stat-label">可执行组件模型</div></div>
+          <div class="stat"><div class="stat-number">4</div><div class="stat-label">待验证假设</div></div>
         </section>
 
-        <section class="section" id="foundations">
+        <section class="section" id="foundations" data-searchable="direction agent design system semantic infrastructure figma code markdown">
           <div class="section-head"><div><div class="section-index">01 / DIRECTION</div><h2>你真正要建立的，不只是组件库</h2></div><p class="section-intro">对话的长期主线，是把设计系统变成设计师、工程师和 Agent 都能共享的语义基础设施。</p></div>
           <div class="overview-grid">
             <article class="panel panel-pad"><h3 class="panel-title">核心判断</h3><p class="quote"><span class="quote-mark">“</span>软件设计像新时代的建筑设计：系统性、规范、模块化、可复用性和语义逻辑，决定了数字空间能否持续生长。</p><p class="source-line"><b>来自你的思考</b> · 你把“提升设计理解”和“让 Agent 真正理解 Nori”看成同一个长期目标。</p></article>
@@ -275,95 +276,119 @@
           </div>
         </section>
 
-        <section class="section" id="taxonomy" data-searchable="分类 taxonomy behavior 渲染 交互 无障碍">
-          <div class="section-head"><div><div class="section-index">02 / TAXONOMY</div><h2>分类不是目录，而是行为模型</h2></div><p class="section-intro">一个组件属于什么大类，会向开发者和 Agent 暗示它的渲染方式、状态协议和无障碍责任。</p></div>
+        <section class="section" id="taxonomy" data-searchable="分类 taxonomy behavior composition Overlay Layout Navigation Z轴 XY轴 Portal 组合 重叠">
+          <div class="section-head"><div><div class="section-index">02 / TAXONOMY</div><h2>分类是行为边界，组合是使用关系</h2></div><p class="section-intro">Overlay 与 Layout &amp; Navigation 可以互相嵌套，但分类归属由组件的核心责任决定，不由它出现在哪个页面决定。</p></div>
           <div class="taxonomy">
-            <div class="panel panel-pad"><table class="taxonomy-table"><thead><tr><th>维度</th><th>分类传递的隐含信息</th></tr></thead><tbody><tr><td>渲染机制</td><td>Overlay 通常意味着 Portal、Backdrop、Z-index 和底层滚动锁定。</td></tr><tr><td>交互协议</td><td>Forms 通常意味着 value、onChange、disabled，以及受控/非受控模式。</td></tr><tr><td>无障碍</td><td>Disclosure 通常意味着 aria-expanded、焦点移动和键盘方向键行为。</td></tr><tr><td>语义 Token</td><td>Feedback 偏向 status-success / status-error；Forms 偏向 border-focus / bg-hover。</td></tr></tbody></table></div>
-            <div class="principle"><h3>给 Nori 的分类原则</h3><div class="principle-line"><b>大类</b><span>决定组件所处的上下文与默认行为。</span></div><div class="principle-line"><b>小类</b><span>决定组件承担的具体任务，例如 Sheet、Modal、Actionsheet。</span></div><div class="principle-line"><b>Props</b><span>把行为差异写成可组合、可验证的参数。</span></div><div class="principle-line"><b>金句</b><span>大类决定上下文，小组件决定 Props。</span></div></div>
+            <div class="panel panel-pad"><table class="taxonomy-table"><thead><tr><th>维度</th><th>Overlay</th><th>Layout &amp; Navigation</th></tr></thead><tbody><tr><td>空间关系</td><td>Z 轴浮层，脱离正常文档流。</td><td>XY 轴骨架，构成页面物理结构。</td></tr><tr><td>生命周期</td><td>临时中断任务，打开后关闭返回。</td><td>常驻页面框架或路由入口，不打断主流程。</td></tr><tr><td>渲染机制</td><td>Portal、Backdrop、Z-index、焦点与滚动管理。</td><td>Document Flow、Header、Tab、Divider、Grid/Stack。</td></tr><tr><td>组合关系</td><td>提供 Header / Body / Footer 等插槽。</td><td>可作为内容插入 Overlay 插槽，不改变自身分类。</td></tr></tbody></table></div>
+            <div class="principle"><h3>给 Nori 的边界原则</h3><div class="principle-line"><b>先看职责</b><span>有 Portal、遮罩、浮层动画与临时生命周期，归入 Overlay。</span></div><div class="principle-line"><b>再看组合</b><span>Overlay 内部可以放 NavigationBar、Divider、Forms、Avatar。</span></div><div class="principle-line"><b>反向约束</b><span>页面不能静态内嵌 Overlay，必须由事件触发它的生命周期。</span></div><div class="principle-line"><b>金句</b><span>重叠来自组合，不应复制一套分类或组件。</span></div></div>
+          </div>
+          <div class="knowledge-list" style="margin-top:18px">
+            <article class="knowledge-item" data-keywords="overlay layout navigation composition slot 分类重叠">
+              <div class="item-meta"><strong>分类 × 组合</strong>组件可以跨类协作，但归属仍然唯一<div class="tag-row"><span class="tag">已形成判断</span><span class="tag blue">架构规则</span></div></div>
+              <div class="item-body"><h3>Overlay 是容器，Layout &amp; Navigation 是装进去的骨架</h3><p>全屏弹窗中的 Header、Drawer 中的 Divider、多步弹窗中的 Segmented Control 都是组合案例。它们不因此变成 Overlay，也不要求 BottomSheet 把导航结构写死。</p><div class="split"><div class="sub-block"><h4>正确组合</h4><p>Overlay 暴露 <code>Header</code>、<code>Body</code>、<code>Footer</code> 插槽；业务在插槽内放入导航、布局或表单组件。</p></div><div class="sub-block"><h4>给 Agent 的分类规则</h4><p>按 Portal / Z 轴 / 遮罩 / 动画判断 Overlay；按排版、分区、路由判断 Layout &amp; Navigation。</p></div></div></div>
+            </article>
           </div>
         </section>
 
-        <section class="section" id="overlays" data-searchable="overlay bottom sheet modal dialog drawer actionsheet portal">
-          <div class="section-head"><div><div class="section-index">03 / COMPONENTS</div><h2>Overlay 家族：先分容器，再分用途</h2></div><p class="section-intro">对话里最有价值的一次辨析，是把视觉形态、业务用途和渲染架构拆成了三个层次。</p></div>
+        <section class="section" id="component-architecture" data-searchable="component architecture avatar shell slot compound wrapper base variant selection border avatar group size Figma Markdown 组件边界">
+          <div class="section-head"><div><div class="section-index">03 / ARCHITECTURE</div><h2>先决定边界，再决定加不加变体</h2></div><p class="section-intro">新内容把组件问题从“画几个 Variant”推进到单一职责、组合结构、复用范围和尺寸契约。</p></div>
           <div class="knowledge-list">
-            <article class="knowledge-item" data-keywords="bottom sheet modal drawer actionsheet overlay">
-              <div class="item-meta"><strong>命名关系</strong>从容易混淆的组件名，走向层级化模型<div class="tag-row"><span class="tag orange">你的问题</span><span class="tag">已形成判断</span></div></div>
-              <div class="item-body"><h3>Bottom Sheet 是容器形态，Actionsheet 是业务用途</h3><p>Bottom Sheet 是从底部滑出的通用模态容器，可以承载表单、筛选器、富文本或复杂 Card。Actionsheet 是它的一种预设用途：面向当前上下文提供一列操作按钮。</p><div class="split"><div class="sub-block"><h4>建议的 Nori 关系</h4><ul><li>Overlay / Sheet：基础容器</li><li>Sheet preset：Bottom、Center、Side</li><li>Actionsheet：面向操作列表的业务预设</li></ul></div><div class="sub-block"><h4>为什么要这样拆</h4><p>避免把两个底层实现重复维护，同时让 Agent 能从容器推断 Portal、遮罩、关闭行为，再从 preset 推断内容结构。</p></div></div></div>
+            <article class="knowledge-item" data-keywords="shell content compound components slots bottom sheet footer">
+              <div class="item-meta"><strong>Shell / Slot</strong>固定外壳承载一致性，插槽承载业务变化<div class="tag-row"><span class="tag">组件架构</span><span class="tag orange">可写入 Spec</span></div></div>
+              <div class="item-body"><h3>外壳规则标准化，内容通过 Compound Components 扩展</h3><p>样式多样并不全是业务必然。容器圆角、边距、背景、Header 与 Footer 位置应由 Shell 统一；具体表单、列表和长内容只进入 Body，不应覆盖外壳样式。</p><div class="split"><div class="sub-block"><h4>Shell 固定项</h4><ul><li>圆角、背景、阴影、边距使用统一语义 Token。</li><li>Header 统一 Drag Handle 或 Close Button 规则。</li><li>Footer 只使用标准按钮布局组合。</li></ul></div><div class="sub-block"><h4>Slot 可变项</h4><ul><li><code>children</code> 承载 Body 业务内容。</li><li><code>footerActions</code> 承载标准操作区。</li><li>禁止 Agent 在外壳上重复加 Padding 或覆盖圆角。</li></ul></div></div></div>
             </article>
-            <article class="knowledge-item" data-keywords="gluestack disclosure overlay classification ux architecture">
-              <div class="item-meta"><strong>分类争议</strong>同一组件可以有不同分类视角<div class="tag-row"><span class="tag blue">对比分析</span><span class="tag yellow">待 Nori 决策</span></div></div>
-              <div class="item-body"><h3>为什么 gluestack 把 Actionsheet 放在 Disclosure？</h3><p>这不一定是“谁对谁错”，而是两个分类系统在回答不同问题：Disclosure 关注用户意图与渐进揭示，Overlay 关注脱离文档流的渲染架构。</p><div class="split"><div class="sub-block"><h4>UX 视角</h4><p>点击后向用户揭示更多操作或次要信息，因此可与 Accordion 放在同一语义家族。</p></div><div class="sub-block"><h4>Agent / 工程视角</h4><p>需要 Portal、Z-index、Backdrop、ESC 或 Android 返回键时，归入 Overlay 更不容易产生歧义。</p></div></div></div>
+            <article class="knowledge-item" data-keywords="avatar base wrapper selection selected UserSelectChip AvatarSelect business state">
+              <div class="item-meta"><strong>Base / Wrapper</strong>通用视觉状态进基础组件，业务交互状态进包装组件<div class="tag-row"><span class="tag orange">Avatar 案例</span><span class="tag">判断原则</span></div></div>
+              <div class="item-body"><h3>Avatar 不应该因为某个流程可选中，就长出选择态</h3><p>把 <code>isSelected</code> 塞进 Avatar 会污染静态媒体展示职责，也会让尺寸、状态、外圈组合成指数级 Variant。成员选择应使用 <code>UserSelectChip</code> 或 <code>AvatarSelect</code> 包装 Avatar。</p><div class="split"><div class="sub-block"><h4>加入 Base Component</h4><p>Hover、Focus、Disabled、Loading 等通用状态；形状、描边、尺寸等纯视觉属性；内部结构不发生破坏性变化。</p></div><div class="sub-block"><h4>建立 Wrapper / Composite</h4><p>Selected member、Unread Story、Cart added 等业务状态；需要额外 Label、Check 或光环结构；只用于少数流程。</p></div></div></div>
             </article>
-            <article class="knowledge-item" data-keywords="portal z-index backdrop scroll lock overlay">
-              <div class="item-meta"><strong>渲染约束</strong>浮层的“看起来在这里”不等于“渲染在这里”<div class="tag-row"><span class="tag">技术约束</span><span class="tag orange">可写入 Spec</span></div></div>
-              <div class="item-body"><h3>Portal 是 Overlay 的结构性规则</h3><p>组件在业务代码中可以嵌套在列表或页面内部，但打开时通常应传送到 UI 树顶层，避免 overflow 截断和局部 stacking context 导致的层级错误。</p><div class="sub-block"><h4>给 Agent 的明确约束</h4><ul><li>挂载到全局 Portal / root layer。</li><li>声明 Z-index 层级与 Backdrop 策略。</li><li>声明是否锁定底层滚动，以及点击遮罩、ESC、返回键的关闭规则。</li></ul></div></div>
+            <article class="knowledge-item" data-keywords="avatar border avatar group outside ring box-shadow overlap max">
+              <div class="item-meta"><strong>Avatar 视觉边界</strong>描边属于 Avatar，堆叠关系属于 AvatarGroup<div class="tag-row"><span class="tag">候选规范</span><span class="tag blue">Figma/CSS 差异</span></div></div>
+              <div class="item-body"><h3>白色外描边是通用视觉样式，成员选择态才是业务组件</h3><p>外描边用于复杂背景或多头像重叠时的视觉切割，不承载业务语义，可以直接成为 Avatar 的视觉属性；重叠间距、最大数量和 <code>+N</code> 截断应由 AvatarGroup 管理。</p><div class="split"><div class="sub-block"><h4>Avatar / AvatarGroup 分工</h4><ul><li>Avatar：形状、尺寸、Fallback、Border。</li><li>AvatarGroup：Negative Spacing、Max、<code>+N</code>。</li></ul></div><div class="sub-block"><h4>CSS 实现约束</h4><p>Figma 的 Outside Border 与 CSS <code>border</code> 行为不同。Agent 实现重叠头像时优先使用 <code>ring</code> 或 <code>box-shadow</code>，避免挤压头像总尺寸。</p></div></div></div>
+            </article>
+            <article class="knowledge-item" data-keywords="avatar size xs sm md lg xl 2xl 20 24 32 44 56 88 hardcode scale constraint">
+              <div class="item-meta"><strong>Scale / Constraint</strong>尺寸不是使用者的自由参数，而是设计系统契约<div class="tag-row"><span class="tag yellow">待确认 Token</span><span class="tag">已形成原则</span></div></div>
+              <div class="item-body"><h3>禁止手改 Avatar 尺寸，改用受约束的 T-shirt Scale</h3><p>20–32px 是头像与文本混排最密集的区域。现有 24 / 44 / 56 / 88 阶梯存在断层，因此建议补充高频尺寸，而不是允许 <code>width: 33px</code> 之类的硬编码。</p><div class="split"><div class="sub-block"><h4>候选标准尺寸</h4><p><code>xs 20</code> / <code>sm 24</code> / <code>md 32</code> / <code>lg 44</code> / <code>xl 56</code> / <code>2xl 88</code></p></div><div class="sub-block"><h4>约束与例外</h4><p>Figma 固定组件尺寸，Markdown 明确“只用语义 Size”。特殊场景先申请新增标准 Size，不能让业务自由覆盖。</p></div></div></div>
             </article>
           </div>
         </section>
 
-        <section class="section" id="protocol" data-searchable="state controlled uncontrolled forms value defaultValue onChange disabled a11y">
-          <div class="section-head"><div><div class="section-index">04 / PROTOCOL</div><h2>状态和数据流，是设计规范的另一半</h2></div><p class="section-intro">视觉稿里的一个“Disabled”或“Open”，在代码里对应的是数据拥有权、回调协议和交互边界。</p></div>
+        <section class="section" id="overlays" data-searchable="overlay bottom sheet modal ModalScreen full screen page sheet portal backdrop dismiss actionable prompt selection content">
+          <div class="section-head"><div><div class="section-index">04 / OVERLAY</div><h2>先统一浮层外壳，再定义任务模式</h2></div><p class="section-intro">Bottom Sheet 与 Modal Screen 的混乱来自把容器、业务内容、导航模式和操作区混在同一个组件里。</p></div>
+          <div class="knowledge-list">
+            <article class="knowledge-item" data-keywords="bottom sheet prompt selection content footer actions compound component">
+              <div class="item-meta"><strong>BottomSheet</strong>统一 Shell，再用 Prompt / Selection / Content 表达任务<div class="tag-row"><span class="tag orange">11 个界面诊断</span><span class="tag">候选规范</span></div></div>
+              <div class="item-body"><h3>Bottom Sheet 样式混乱，是外壳失守与场景未分组同时发生</h3><p>圆角、Margin、Header、Footer 不统一属于规范问题；引导、筛选、长详情混在同一内容结构属于抽象不足。二者应分别通过 Shell Rules 与 Preset Variants 收拢。</p><div class="split"><div class="sub-block"><h4>标准 Shell</h4><ul><li>Container、Header、Body、Footer 固定骨架。</li><li>外壳只能用统一 Token，不允许业务覆盖。</li><li>Body 负责滚动约束，Footer 固定操作区。</li></ul></div><div class="sub-block"><h4>3 个任务 Preset</h4><ul><li><code>prompt</code>：引导、确认、单步操作。</li><li><code>selection</code>：表单、日历、列表选择。</li><li><code>content</code>：长内容与多段 Snap Points。</li></ul></div></div></div>
+            </article>
+            <article class="knowledge-item" data-keywords="ModalScreen full screen modal page sheet header dismiss actionable footer">
+              <div class="item-meta"><strong>ModalScreen</strong>用两种 Header 模式收拢全屏任务型与编辑型页面<div class="tag-row"><span class="tag">页面框架</span><span class="tag yellow">需核对现有代码</span></div></div>
+              <div class="item-body"><h3>全屏弹窗不是普通 Page，也不是可以随手拼装的 Modal</h3><p>它拥有独立页面能力，但生命周期仍属于 Overlay。应固定 Header / Body / Footer 三段框架，并在设计系统层只保留两种可预期的 Header 模式。</p><div class="split"><div class="sub-block"><h4>两种标准模式</h4><ul><li><code>dismiss</code>：右上角 X，底部固定 CTA。</li><li><code>actionable</code>：左 Cancel、右 Done / Save。</li><li>容器再区分 <code>full</code> 与 <code>pageSheet</code>。</li></ul></div><div class="sub-block"><h4>Agent 排他规则</h4><ul><li>Header 只能由 <code>title</code> + <code>headerMode</code> 生成。</li><li>底部主操作必须进入 Footer Slot。</li><li>背景只允许使用统一 Surface / Canvas Token。</li></ul></div></div></div>
+            </article>
+            <article class="knowledge-item" data-keywords="portal z-index backdrop scroll lock composition navigation divider steps">
+              <div class="item-meta"><strong>渲染与组合</strong>Overlay 负责 Z 轴与生命周期，内部内容保持跨类复用<div class="tag-row"><span class="tag">技术约束</span><span class="tag blue">组合案例</span></div></div>
+              <div class="item-body"><h3>浮层“看起来在这里”，打开时应传送到 UI 顶层</h3><p>Portal 负责避免 overflow 与局部 stacking context 截断。Navbar、Divider、Segmented Control 等组件仍保留原分类，只是作为内容被放进 Overlay 插槽。</p><div class="split"><div class="sub-block"><h4>渲染约束</h4><ul><li>挂载全局 Portal / root layer。</li><li>声明 Z-index、Backdrop 和滚动锁定。</li><li>声明遮罩、ESC、Android 返回键关闭规则。</li></ul></div><div class="sub-block"><h4>典型组合</h4><ul><li>Modal Header 内放 NavigationBar。</li><li>Drawer Body 内放 Divider / Stack。</li><li>多步 Modal 内放 Steps / Segmented Control。</li></ul></div></div></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="protocol" data-searchable="state controlled uncontrolled forms value defaultValue onChange disabled a11y API ownership">
+          <div class="section-head"><div><div class="section-index">05 / PROTOCOL</div><h2>状态和数据流，是设计规范的另一半</h2></div><p class="section-intro">视觉稿里的一个“Disabled”或“Open”，在代码里对应的是数据拥有权、回调协议和交互边界。</p></div>
           <div class="knowledge-list">
             <article class="knowledge-item" data-keywords="controlled uncontrolled forms state value defaultValue onChange">
               <div class="item-meta"><strong>Forms 组件</strong>Input、Checkbox、Select、Switch<div class="tag-row"><span class="tag">状态协议</span><span class="tag blue">高频模式</span></div></div>
               <div class="item-body"><h3>专业组件库通常同时支持两种模式，但业务常优先受控</h3><p>受控模式让页面状态成为 Single Source of Truth，适合实时校验、组件联动、输入格式化和等待网络结果后再改变状态。非受控模式更适合简单表单或性能敏感场景。</p><div class="split"><div class="sub-block"><h4>受控</h4><p><code>value</code> + <code>onChange</code>。组件展示什么，由外部状态决定；组件只发出变化通知。</p></div><div class="sub-block"><h4>非受控</h4><p><code>defaultValue</code>。组件内部管理状态，外部在提交时读取结果，使用成本更低。</p></div></div></div>
             </article>
-            <article class="knowledge-item" data-keywords="states props invalid disabled required focus loading empty constraints">
+            <article class="knowledge-item" data-keywords="states props invalid disabled required focus loading empty constraints agent contract">
               <div class="item-meta"><strong>状态完整性</strong>从“有几个变体”转向“状态是否可执行”<div class="tag-row"><span class="tag orange">诊断方法</span><span class="tag yellow">需落 Nori</span></div></div>
-              <div class="item-body"><h3>状态不是装饰，而是组件的行为合同</h3><p>Button、Input 或 Sheet 的状态应同时对应视觉表现、交互结果和数据约束。Agent 漏掉 Disabled、Error 或 Loading，不只是产出问题，也可能说明 States 规范不完整。</p><div class="sub-block"><h4>建议统一检查的状态面</h4><ul><li>通用状态：default、hover、pressed、focused、disabled、loading。</li><li>表单状态：invalid、required、readOnly、value / empty。</li><li>边界条件：超长文本、空状态、异步失败、内容溢出、键盘与触控。</li></ul></div></div>
+              <div class="item-body"><h3>状态不是装饰，而是组件的行为合同</h3><p>Button、Input 或 Sheet 的状态应同时对应视觉表现、交互结果和数据约束。Agent 漏掉 Disabled、Error 或 Loading，不只是产出问题，也可能说明 States 规范不完整。</p><div class="split"><div class="sub-block"><h4>建议统一检查的状态面</h4><ul><li>通用状态：default、hover、pressed、focused、disabled、loading。</li><li>表单状态：invalid、required、readOnly、value / empty。</li></ul></div><div class="sub-block"><h4>状态如何写进 Agent API</h4><p>每个状态要说明外观、交互结果、状态拥有者、触发条件和恢复方式，不能只留一个 Figma Variant 名称。</p></div></div></div>
             </article>
           </div>
         </section>
 
-        <section class="section" id="agent-spec" data-searchable="agent spec markdown json anatomy slots props states tokens code connect figma">
-          <div class="section-head"><div><div class="section-index">05 / HANDOFF</div><h2>把组件写成 Agent 能执行的规范</h2></div><p class="section-intro">对话已经给出一套清晰的最小结构：先讲组成，再讲接口，再讲状态和约束。</p></div>
+        <section class="section" id="agent-spec" data-searchable="agent spec markdown json anatomy slots props states tokens code connect figma Auto Layout Variable MCP API source of truth">
+          <div class="section-head"><div><div class="section-index">06 / HANDOFF</div><h2>Figma、Markdown 与代码各自承担什么</h2></div><p class="section-intro">视觉标注主要给人看；Agent 需要结构化 Figma 输出、项目内 Markdown 和与代码 1:1 对齐的命名。</p></div>
           <div class="spec-layout">
-            <div class="panel panel-pad"><div class="spec-flow"><div class="flow-step"><div class="flow-num">01</div><div><h3>Anatomy</h3><p>组件由哪些子件组成，例如 Sheet.Content、Overlay、DragHandle。</p></div></div><div class="flow-step"><div class="flow-num">02</div><div><h3>Slots</h3><p>哪些位置可以被业务内容替换，哪些结构必须保留。</p></div></div><div class="flow-step"><div class="flow-num">03</div><div><h3>Props</h3><p>把 snapPoints、isOpen、onClose、type 等核心 API 写成明确参数。</p></div></div><div class="flow-step"><div class="flow-num">04</div><div><h3>States & Constraints</h3><p>说明状态、响应式规则、边界条件、Do / Don't 和可访问性。</p></div></div></div></div>
-            <pre class="spec-code"><span class="code-comment">// Nori / Sheet.spec.md 的结构草案</span>
-<span class="code-key">component</span>: Sheet
-<span class="code-key">category</span>: Overlay
-<span class="code-key">purpose</span>: <span class="code-value">通用浮层容器</span>
+            <div class="panel panel-pad"><div class="spec-flow"><div class="flow-step"><div class="flow-num">01</div><div><h3>Figma Structure</h3><p>Figma 只保留原子组件与变体；100% 使用 Auto Layout 和 Variables / Tokens，组件命名与代码 1:1。</p></div></div><div class="flow-step"><div class="flow-num">02</div><div><h3>Machine-readable Output</h3><p>通过 Figma API、MCP 或插件导出 Structure / Tokens。截图 + Vision 作为补充，而不是规范源。</p></div></div><div class="flow-step"><div class="flow-num">03</div><div><h3>Markdown Source of Truth</h3><p>为每个组件维护代码库内 Markdown。视觉变化改 Figma，规则与 API 变化改组件 Markdown。</p></div></div><div class="flow-step"><div class="flow-num">04</div><div><h3>Code Mapping &amp; Test</h3><p>保证 Figma Component 与代码 Component 同名，让 Agent 能定位实例、调用组件并接受约束测试。</p></div></div></div></div>
+            <pre class="spec-code"><span class="code-comment"># nori/components/Avatar.md</span>
 
-<span class="code-key">anatomy</span>:
-  - Overlay
-  - Content
-  - DragHandle
-  - Header
-  - Body
-  - Footer
+<span class="code-key">component</span>: Avatar
+<span class="code-key">category</span>: <span class="code-value">Media &amp; Icons</span>
+<span class="code-key">figma_component</span>: Avatar
+<span class="code-key">code_component</span>: <span class="code-value">&lt;Avatar /&gt;</span>
 
-<span class="code-key">props</span>:
-  <span class="code-key">type</span>: <span class="code-value">bottom | center | side</span>
-  <span class="code-key">isOpen</span>: <span class="code-value">boolean</span>
-  <span class="code-key">onClose</span>: <span class="code-value">() =&gt; void</span>
-  <span class="code-key">dismissible</span>: <span class="code-value">boolean</span>
-  <span class="code-key">hasOverlay</span>: <span class="code-value">boolean</span>
+<span class="code-key">sizes</span>:
+  xs: <span class="code-value">20</span>
+  sm: <span class="code-value">24</span>
+  md: <span class="code-value">32</span>
+  lg: <span class="code-value">44</span>
+  xl: <span class="code-value">56</span>
+  2xl: <span class="code-value">88</span>
 
-<span class="code-key">behavior</span>:
-  portal: <span class="code-value">required</span>
-  bodyScrollLock: <span class="code-value">when open</span>
-  escapeKey: <span class="code-value">close when dismissible</span>
-  androidBack: <span class="code-value">close when dismissible</span>
+<span class="code-key">visual_props</span>:
+  shape / fallback / badge / outsideBorder
 
-<span class="code-key">states</span>:
-  closed / open / dragging / loading / error
-<span class="code-key">a11y</span>:
-  focusManagement / aria-label / keyboardNavigation</pre>
+<span class="code-key">composition</span>:
+  selection: <span class="code-value">UserSelectChip</span>
+  overlap: <span class="code-value">AvatarGroup</span>
+
+<span class="code-key">constraints</span>:
+  - never set custom width or height
+  - use ring / box-shadow for outside border
+  - keep business selection outside Avatar</pre>
           </div>
         </section>
 
-        <section class="section" id="review" data-searchable="review verify open question next step token naming gluestack material apple tamagui">
-          <div class="section-head"><div><div class="section-index">06 / REVIEW</div><h2>这张知识网还需要什么？</h2></div><p class="section-intro">初版先把方向和关系搭起来。下一轮最值得做的，是把判断逐条变成 Nori 的可验证资产。</p></div>
+        <section class="section" id="review" data-searchable="review verify open question next step avatar modal bottom sheet figma markdown">
+          <div class="section-head"><div><div class="section-index">07 / REVIEW</div><h2>新知识已经进入正确层级了吗？</h2></div><p class="section-intro">本轮把“新出现的大点”重新放回父主题。继续更新时，主题仍应随证据和成熟度升降，而不是保留历史层级。</p></div>
           <div class="review-board">
-            <div class="review-col"><h3>已经形成的判断 <span>3 items</span></h3><div class="review-card verified"><strong>设计系统整理是循环</strong><p>理解 → 参考 → 整理 Nori → 喂给 Agent → 发现误解 → 重构。</p></div><div class="review-card verified"><strong>分类可以传递行为</strong><p>大类不只是导航，它能暗示渲染、状态、Token 与无障碍协议。</p></div><div class="review-card verified"><strong>Sheet 与 Actionsheet 分层</strong><p>容器形态和业务用途应拆开建模，减少底层组件冗余。</p></div></div>
-            <div class="review-col"><h3>需要验证的假设 <span>3 items</span></h3><div class="review-card pending"><strong>Nori 的真实分类</strong><p>是否采用 Media、Forms、Data Display、Feedback、Overlay、Disclosure、Layout 等组合？</p></div><div class="review-card pending"><strong>Overlay 的统一 API</strong><p>Bottom、Center、Side 是否统一为 type，还是拆成不同组件并共享底层 primitives？</p></div><div class="review-card pending"><strong>Token 命名层级</strong><p>需要用 Nori 当前真实颜色、间距、状态命名做一次反向校验。</p></div></div>
-            <div class="review-col"><h3>下一轮动作 <span>3 items</span></h3><div class="review-card action"><strong>建立单组件模板</strong><p>为 Button、Input、Sheet 各写一份 Anatomy / Slots / Props / States / A11y 规范。</p></div><div class="review-card action"><strong>选一个 Agent 测试题</strong><p>给 Agent 一份组件 Spec，让它生成页面，再记录遗漏和误用。</p></div><div class="review-card action"><strong>做参考库对照表</strong><p>用 gluestack、M3、Apple Kit 对照 Nori，而不是直接照搬其中任何一家。</p></div></div>
+            <div class="review-col"><h3>已经形成的判断 <span>4 items</span></h3><div class="review-card verified"><strong>分类不等于组合</strong><p>Overlay 与 Layout &amp; Navigation 可以嵌套，但组件分类保持唯一。</p></div><div class="review-card verified"><strong>通用视觉 vs 业务交互</strong><p>Border / Size / Shape 进基础组件；Selection / Label / Check 进包装组件。</p></div><div class="review-card verified"><strong>Shell 先于 Preset</strong><p>浮层先统一外壳和插槽，再按任务建立 BottomSheet / ModalScreen 模式。</p></div><div class="review-card verified"><strong>Markdown 是 Agent 的事实来源</strong><p>Figma 负责结构、视觉与 Token，组件 Markdown 负责规则、接口和约束。</p></div></div>
+            <div class="review-col"><h3>需要验证的假设 <span>4 items</span></h3><div class="review-card pending"><strong>Nori 正式分类树</strong><p>Overlay、Layout &amp; Navigation 与现有导航是否一致，是否有命名冲突？</p></div><div class="review-card pending"><strong>Avatar 尺度与 Token</strong><p>20 / 24 / 32 / 44 / 56 / 88 是否全部采纳，Border Token 如何命名？</p></div><div class="review-card pending"><strong>浮层 API 映射</strong><p>prompt / selection / content 与 dismiss / actionable 是否对应现有实现？</p></div><div class="review-card pending"><strong>Figma → Agent 工具链</strong><p>Auto Layout、Variables、组件命名和代码 Markdown 的落地程度如何？</p></div></div>
+            <div class="review-col"><h3>下一轮动作 <span>4 items</span></h3><div class="review-card action"><strong>写 Avatar.md</strong><p>先完成最小组件规范，并让 Agent 基于它生成成员选择界面进行测试。</p></div><div class="review-card action"><strong>写 BottomSheet / ModalScreen Spec</strong><p>固定 Shell、Slots、Preset、Header Mode 与排他性 Agent 规则。</p></div><div class="review-card action"><strong>建立分类 × 组合矩阵</strong><p>明确 Overlay 内允许使用哪些 Layout、Forms、Media 组件。</p></div><div class="review-card action"><strong>继续两文件增量更新</strong><p>下一轮保留旧导出，只把新导出作为新版输入，自动重排整张知识网。</p></div></div>
           </div>
-          <div class="panel panel-pad" style="margin-top:18px"><h3 class="panel-title">参考对象的正确用法</h3><p style="margin:0;color:#58636c;font-size:13px">gluestack-ui 适合观察跨平台组件分类和 Slots；Material Design 3 适合观察严密的状态、响应式和 Token 分层；Apple UI Kit 适合观察 iOS 原生 Sheet 与交互隐性规则；Hero UI 更适合从文档的 Anatomy 与 API Reference 中提炼代码结构。它们是参照系，不是 Nori 的答案。</p></div>
+          <div class="panel panel-pad" style="margin-top:18px"><h3 class="panel-title">本轮重组结果</h3><p style="margin:0;color:#58636c;font-size:13px">Bottom Sheet 与 Full Screen Modal 从候选大主题降为 Overlay 下的任务模式；Avatar 的 Selection、Border、Avatar Group、Size Scale 归入“组件边界与变体”；Figma 视觉标注问题扩展为完整的 Figma → 结构化输出 → Markdown → 代码映射管线。这个变化说明：后面出现的新大点，可能只是未来更大主题下的子节点。</p></div>
         </section>
 
-        <div class="empty" id="emptyState">没有找到匹配的主题。可以尝试搜索 <b>Token</b>、<b>Sheet</b>、<b>Agent</b> 或 <b>状态</b>。</div>
-        <footer class="footer"><span>Nori Design System Review · v0.1 · 基于附件对话整理</span><span>内容状态：初版，等待你的 review</span></footer>
+        <div class="empty" id="emptyState">没有找到匹配的主题。可以尝试搜索 <b>Avatar</b>、<b>ModalScreen</b>、<b>Layout</b>、<b>composition</b>、<b>Figma</b> 或 <b>Agent</b>。</div>
+        <footer class="footer"><span>Nori Design System Review · v0.2 · history_2 增量至 2026-09-17 16:53</span><span>内容状态：已重组 9 轮新对话，等待你的 review</span></footer>
       </div>
     </main>
   </div>
@@ -373,6 +398,9 @@
     const search = document.querySelector('#search');
     const resultCount = document.querySelector('#resultCount');
     const emptyState = document.querySelector('#emptyState');
+    const searchableBlocks = [...document.querySelectorAll('.section[data-searchable]')];
+    const totalTopics = searchableBlocks.length;
+    resultCount.textContent = String(totalTopics);
 
     function setActive(target) {
       navButtons.forEach(button => button.classList.toggle('active', button.dataset.target === target));
@@ -391,16 +419,15 @@
 
     function filterContent() {
       const query = search.value.trim().toLowerCase();
-      const blocks = [...document.querySelectorAll('.section[data-searchable]')];
       let visibleCount = 0;
-      blocks.forEach(block => {
+      searchableBlocks.forEach(block => {
         const haystack = `${block.dataset.searchable} ${block.textContent}`.toLowerCase();
         const match = !query || haystack.includes(query);
         block.hidden = !match;
         if (match) visibleCount += 1;
       });
       document.querySelector('#overview').hidden = Boolean(query);
-      resultCount.textContent = query ? visibleCount : '7';
+      resultCount.textContent = String(query ? visibleCount : totalTopics);
       emptyState.style.display = visibleCount || !query ? 'none' : 'block';
     }
     search.addEventListener('input', filterContent);

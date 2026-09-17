@@ -1,4 +1,4 @@
 interface:
   display_name: "Nori Knowledge Updater"
-  short_description: "从 Gemini 对话持续整理 Nori 设计系统知识网"
-  default_prompt: "请读取新的 Gemini 对话记录，更新 Nori 设计系统知识 review 网站，合并重复主题并保留待验证问题。"
+  short_description: "根据新旧 Gemini 对话历史增量整理 Nori 设计系统知识网"
+  default_prompt: "请以旧版对话历史作为边界，从新版累积对话历史中提取新增内容，重新判断主题归属与父子层级，并更新 outputs/index.html。"
