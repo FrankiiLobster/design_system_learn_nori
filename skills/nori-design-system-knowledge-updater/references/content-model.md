@@ -22,6 +22,17 @@ evidence: short quotes or source pointers
 
 在现有单页 HTML 中，这些字段可以映射为主题卡片、左右分栏、代码块或 review board。不要为了追求字段完整而展示空字段。
 
+洞察使用额外字段，不要与普通主题判断混写：
+
+```text
+insight_origin: user | dialogue | unverified
+insight_statement: 一句可复述的原创判断
+reasoning: 从观察、疑问或反例到判断的推理链
+evidence_quote: 用户关键原话或对话中的最小证据
+reusable_question: 后续可继续追问或验证的问题
+prominence: vault | inline | both
+```
+
 ## Evidence status
 
 - `insight`：用户的学习收获或方向性理解，可信地表达为“我理解到”。
@@ -30,6 +41,26 @@ evidence: short quotes or source pointers
 - `open-question`：问题本身比结论更重要，保留为下一轮研究任务。
 
 不要把 Gemini 的肯定语气当作 `verified-rule` 的证据。
+
+## Insight handling
+
+- `user` 洞察来自用户自己的观察、质疑、类比、反例或认知转折。可以润色排版，但不能改写观点归属，也不能把 Gemini 的补充冒充为用户原话。
+- `dialogue` 洞察是对话共同推导出的非显然边界或诊断原则。必须保留其适用条件、代价和反例。
+- `unverified` 洞察应同时说明缺少哪类证据，例如 Nori Figma 现状、真实组件库实现、Agent 试验或业务数据。
+- Insight Vault 只收录真正改变分类、组件边界、交互语义或协作方式的内容，通常每轮 4–8 条。
+- 普通知识点即使重要，也不必全部使用洞察样式；洞察样式过载会失去重点。
+
+## Long-history compression
+
+长对话以“压缩表达，不压缩知识”为原则：
+
+1. 删除纯寒暄、重复肯定、无信息量过渡和同一结论的机械复述。
+2. 保留用户原始疑问、犹豫、反驳和认知转折，即使它们没有形成最终规范。
+3. 保留例子、反例、边界条件、适用场景、实现差异、代价和未决问题。
+4. Gemini 的长篇回答可改为短摘要、对照表或决策树，但不得删除会改变判断的限定词。
+5. 同一原则反复出现时合并为一个完整版本，并把新证据和新例外并入同一节点。
+6. 无法确定价值时保留并缩写，不直接删除。
+7. 在 review 摘要中记录本轮只省略了哪些纯废话，以及哪些高价值细节被压缩保留。
 
 ## Parent and child promotion
 
@@ -76,6 +107,7 @@ evidence: short quotes or source pointers
 每次更新后，网站应能让用户快速回答：
 
 - 这次新增了什么理解？
+- 哪些是我先提出、后来被证明有架构价值的原创洞察？
 - 哪些内容已经可以写进 Nori 规范？
 - 哪些内容只是 Gemini 的候选解释？
 - 哪些问题要通过 Figma、代码或 Agent 试验确认？
